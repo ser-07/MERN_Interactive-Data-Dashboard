@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
+
   const [formData, setformData] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +13,9 @@ function SignUp() {
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     console.log(formData);
+    
     try {
       const res = await fetch(`http://localhost:3005/api/auth/signup`, {
         method: "POST",
