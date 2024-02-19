@@ -1,6 +1,8 @@
 import Data from "../models/data.model.js";
 
 export const fetchData = async (req, res, next) => {
+  //[TODO] Add condition to validate if user is valid
+
   console.log("Query params", req.query);
   //http://localhost:3005/api/data/fetchdata?start=2020-11-03&end=2022-12-03
   const { start, end } = req.query;

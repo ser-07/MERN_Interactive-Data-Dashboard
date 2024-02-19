@@ -19,6 +19,8 @@ app.use(
   })
 );
 app.use(cookieParser()); //To accept cookies
+app.use(cors({ origin: "http://localhost:3000", credentials: true })); //added after getting CORS error
+
 
 mongoose
   .connect(process.env.MONGO_URI)

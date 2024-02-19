@@ -1,0 +1,80 @@
+*{
+    padding: 5px;
+    font-family: sans-serif;
+    background-color: rgb(223, 233, 231);
+}
+
+.signInDiv{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+.signInDiv h1{
+    text-align: center;
+    padding: 0;
+}
+
+.signInDiv .signInForm{
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.signInDiv .signInForm input{
+    /* border:  none; */
+    /* border: 2px solid red; */
+    border-radius: 9px; 
+    height: 30px; 
+}
+
+.signInDiv .signInForm button{
+    background-color: rgb(100, 128, 203);
+    color: white;
+    border-radius: 9px; 
+    height: 40px;
+}
+
+.signInDiv .signInForm button:hover{
+    background-color: rgb(55, 81, 152);
+    color: white;
+    border-radius: 9px; 
+    
+}
+
+.signInDiv .signInForm button:active{
+    /* box-shadow: 0 5px #666; */
+    transform: scale(0.9);
+}
+
+
+/* HEADER */
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header button{
+    background-color: rgb(244, 56, 56);
+    color: white;
+    border-radius: 10px;
+    height: 30px;
+    font-weight: 700;
+}
+
+
+.header button:hover{
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    height: 30px;
+    font-weight: 700;
+    transform: scale(1.05);
+}
+
+
+
