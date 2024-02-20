@@ -4,6 +4,9 @@
     background-color: rgb(223, 233, 231);
 }
 
+body{
+    overflow: "hidden"
+}
 .signInDiv{
     /* background-color: red; */
     display: flex;
@@ -75,6 +78,52 @@
     font-weight: 700;
     transform: scale(1.05);
 }
+
+/* Home */
+
+.App .dashboard{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid red;
+    min-height: 700px;
+}
+
+.App .dashboard .filters{
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+
+.App .dashboard .filters .filter-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: red; */
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+
+.App .dashboard .filters .filter-item .filter-item-form {
+    display: flex;
+    justify-content: space-between;
+    /* background-color: red; */
+    /* border: 2px solid gray; */
+    border-radius: 10px;
+}
+
+.App .dashboard .chart-div{
+    display: flex;
+    
+}
+
+.App .dashboard .chart-div .charts{
+    border: 2px solid red;
+    width: 50%;
+    height: 500px;
+}
+
 
 
 
