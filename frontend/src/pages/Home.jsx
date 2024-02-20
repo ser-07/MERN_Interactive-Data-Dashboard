@@ -15,7 +15,7 @@ function Home() {
   const [chart1Data, setchart1Data] = useState([]);
   const [chart2Data, setchart2Data] = useState([]);
 
-  console.log(selectedAge);
+  console.log(selectedAge, selectedGender);
 
   const getdata = async () => {
     console.log("Fetching data");
@@ -125,8 +125,8 @@ function Home() {
                     type="radio"
                     id="male"
                     name="filter-gender"
-                    value="male"
-                    checked={selectedGender === "male"}
+                    value="Male"
+                    checked={selectedGender === "Male"}
                     onChange={(e) => setSelectedGender(e.target.value)}
                   />
                   male
@@ -139,8 +139,8 @@ function Home() {
                     type="radio"
                     id="female"
                     name="filter-gender"
-                    value="female"
-                    checked={selectedGender === "female"}
+                    value="Female"
+                    checked={selectedGender === "Female"}
                     onChange={(e) => setSelectedGender(e.target.value)}
                   />
                   female
