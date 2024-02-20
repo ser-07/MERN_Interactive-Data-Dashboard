@@ -11,8 +11,12 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-function ChartComponent({ chart1Data }) {
-  console.log("char1data from chart component", chart1Data);
+function ChartComponent({ chart1Data, handleFeatureSelection }) {
+  console.log(
+    "char1data from chart component",
+    chart1Data,
+    typeof handleFeatureSelection
+  );
   // const data = [
   //   { name: "A", value: 1500 },
   //   {
@@ -58,6 +62,7 @@ function ChartComponent({ chart1Data }) {
           dataKey="value"
           fill="#8884d8"
           activeBar={<Rectangle fill="pink" stroke="blue" />}
+          onClick={handleFeatureSelection}
         />
       </BarChart>
     </ResponsiveContainer>

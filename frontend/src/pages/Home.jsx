@@ -14,8 +14,9 @@ function Home() {
   const [data, setData] = useState({});
   const [chart1Data, setchart1Data] = useState([]);
   const [chart2Data, setchart2Data] = useState([]);
+  const [selectedFeature, setSelectedFeature] = useState("A");
 
-  console.log(selectedAge, selectedGender);
+  console.log(selectedAge, selectedGender, selectedFeature);
 
   const getdata = async () => {
     console.log("Fetching data");
@@ -63,9 +64,15 @@ function Home() {
 
   useEffect(() => {
     console.log("data state", data);
+    console.log(selectedAge, selectedGender, selectedFeature);
     setCount(data.length);
     const d1 = chart1DataCalc(data, selectedAge, selectedGender);
-    const d2 = chart2DataCalc(data, selectedAge, selectedGender, "A");
+    const d2 = chart2DataCalc(
+      data,
+      selectedAge,
+      selectedGender,
+      selectedFeature
+    );
     setchart1Data(d1);
     setchart2Data(d2);
     // console.log(
@@ -75,7 +82,12 @@ function Home() {
     //   d1,
     //   d2
     // );
-  }, [data, selectedAge, selectedGender]);
+  }, [data, selectedAge, selectedGender, selectedFeature]);
+
+  const handleFeatureSelection = (e) => {
+    console.log(e.name);
+    setSelectedFeature(e.name);
+  };
 
   return (
     <div className="App">
@@ -151,7 +163,11 @@ function Home() {
         </div>
         <div className="chart-div">
           <div className="charts">
-            <ChartComponent chart1Data={chart1Data} />
+            <ChartComponent
+              chart1Data={chart1Data}
+              // handleFeatureSelection={(e) => handleFeatureSelection(e)
+              handleFeatureSelection={handleFeatureSelection}
+            />
           </div>
           <div className="charts">
             <LineChartComponent chart2Data={chart2Data} />
