@@ -76,12 +76,12 @@ export const chart1DataCalc = (data, selectedAge, selectedGender) => {
       //bug fix to accept null values in params:
       if (
         key === "Age" &&
-        (selectedAge === null ? false : value !== selectedAge)
+        (selectedAge === "null" ? false : value !== selectedAge)
       )
         break;
       if (
         key === "Gender" &&
-        (selectedGender === null ? false : value !== selectedGender)
+        (selectedGender === "null" ? false : value !== selectedGender)
       )
         break;
 
@@ -131,12 +131,12 @@ export const chart2DataCalc = (
       //Bug fix to accept null values
       if (
         key === "Age" &&
-        (selectedAge === null ? false : value !== selectedAge)
+        (selectedAge === "null" ? false : value !== selectedAge)
       )
         break;
       if (
         key === "Gender" &&
-        (selectedGender === null ? false : value !== selectedGender)
+        (selectedGender === "null" ? false : value !== selectedGender)
       )
         break;
       //Check for the value of Age is matching the selected Age when the key is Age. Same with Gender

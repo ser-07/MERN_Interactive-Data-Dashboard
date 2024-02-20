@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import Header from "../components/Header";
 
 import ChartComponent from "../components/ChartComponent";
@@ -9,12 +11,28 @@ import { chart1DataCalc, chart2DataCalc } from "../utils/prepData";
 function Home() {
   console.log("HOme component");
   const [count, setCount] = useState(0);
-  const [selectedGender, setSelectedGender] = useState(null);
-  const [selectedAge, setSelectedAge] = useState(null);
+
+  //Handle filter state through url:
+  let [searchParams, setSearchParams] = useSearchParams({
+    selectedAge: null,
+    selectedGender: null,
+  });
+
+  const [selectedGender, setSelectedGender] = useState(
+    searchParams.get("selectedGender")
+  );
+  const [selectedAge, setSelectedAge] = useState(
+    searchParams.get("selectedAge")
+  );
   const [data, setData] = useState({});
   const [chart1Data, setchart1Data] = useState([]);
   const [chart2Data, setchart2Data] = useState([]);
   const [selectedFeature, setSelectedFeature] = useState("A");
+
+  console.log(
+    typeof searchParams.get("selectedAge"),
+    searchParams.get("selectedGender")
+  );
 
   console.log(selectedAge, selectedGender, selectedFeature);
 
@@ -105,8 +123,14 @@ function Home() {
                     id="15-25"
                     name="filter-age"
                     value={"15-25"}
-                    checked={selectedAge === "15-25"}
-                    onChange={(e) => setSelectedAge(e.target.value)}
+                    checked={searchParams.get("selectedAge") === "15-25"}
+                    onChange={(e) =>
+                      setSearchParams((prev) => {
+                        prev.set("selectedAge", e.target.value);
+                        setSelectedAge(e.target.value);
+                        return prev;
+                      })
+                    }
                   />
                   15-25
                 </label>
@@ -119,8 +143,14 @@ function Home() {
                     id=">25"
                     name="filter-age"
                     value=">25"
-                    checked={selectedAge === ">25"}
-                    onChange={(e) => setSelectedAge(e.target.value)}
+                    checked={searchParams.get("selectedAge") === ">25"}
+                    onChange={(e) =>
+                      setSearchParams((prev) => {
+                        prev.set("selectedAge", e.target.value);
+                        setSelectedAge(e.target.value);
+                        return prev;
+                      })
+                    }
                   />
                   {">25"}
                 </label>
@@ -139,7 +169,13 @@ function Home() {
                     name="filter-gender"
                     value="Male"
                     checked={selectedGender === "Male"}
-                    onChange={(e) => setSelectedGender(e.target.value)}
+                    onChange={(e) =>
+                      setSearchParams((prev) => {
+                        prev.set("selectedGender", e.target.value);
+                        setSelectedGender(e.target.value);
+                        return prev;
+                      })
+                    }
                   />
                   male
                 </label>
@@ -153,7 +189,13 @@ function Home() {
                     name="filter-gender"
                     value="Female"
                     checked={selectedGender === "Female"}
-                    onChange={(e) => setSelectedGender(e.target.value)}
+                    onChange={(e) =>
+                      setSearchParams((prev) => {
+                        prev.set("selectedGender", e.target.value);
+                        setSelectedGender(e.target.value);
+                        return prev;
+                      })
+                    }
                   />
                   female
                 </label>
