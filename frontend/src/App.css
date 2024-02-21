@@ -1,7 +1,7 @@
 *{
     padding: 5px;
     font-family: sans-serif;
-    background-color: rgb(223, 233, 231);
+    /* background-color: rgb(223, 233, 231); */
 }
 
 body{
@@ -124,6 +124,36 @@ body{
     height: 500px;
 }
 
+.date-filter * {
+    /* background-color: rgb(167, 180, 180); */
+    all: revert;
+    max-width: 300px;
+} 
 
+.date-filter{
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px solid red;
+    height: 30px;
+    /* justify-content: space-between; */
+}
 
+/* .react-datepicker-popper{
+   transform:  translate(1025.07px, 217.6px)
+} */
 
+.react-datepicker-wrapper{
+    padding: 5px;
+    
+   
+}
+
+.react-datepicker-wrapper .react-datepicker__input-container input{
+    border-radius: 6px
+
+}
+
+/* .react-datepicker__input-container input .red{
+background-color: red;
+}
+ */

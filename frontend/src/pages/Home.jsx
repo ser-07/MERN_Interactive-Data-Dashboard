@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import Header from "../components/Header";
 
@@ -14,24 +16,35 @@ function Home() {
 
   //Handle filter state through url:
   let [searchParams, setSearchParams] = useSearchParams({
-    selectedAge: null,
-    selectedGender: null,
+    Age: null,
+    Gender: null,
+    Feature: "A",
   });
 
   const [selectedGender, setSelectedGender] = useState(
-    searchParams.get("selectedGender")
+    searchParams.get("Gender")
   );
-  const [selectedAge, setSelectedAge] = useState(
-    searchParams.get("selectedAge")
-  );
+  const [selectedAge, setSelectedAge] = useState(searchParams.get("Age"));
   const [data, setData] = useState({});
   const [chart1Data, setchart1Data] = useState([]);
   const [chart2Data, setchart2Data] = useState([]);
-  const [selectedFeature, setSelectedFeature] = useState("A");
+  const [selectedFeature, setSelectedFeature] = useState(
+    searchParams.get("Feature")
+  );
+
+  //state for date picker
+  const [startDate, setStartDate] = useState(new Date("2014-02-08"));
+  const [endDate, setEndDate] = useState(new Date("2014-02-10"));
 
   console.log(
-    typeof searchParams.get("selectedAge"),
-    searchParams.get("selectedGender")
+    startDate.toISOString().split("T")[0],
+    endDate.toISOString().split("T")[0]
+  );
+
+  console.log(
+    typeof searchParams.get("Age"),
+    searchParams.get("Gender"),
+    searchParams.get("Feature")
   );
 
   console.log(selectedAge, selectedGender, selectedFeature);
@@ -103,8 +116,14 @@ function Home() {
   }, [data, selectedAge, selectedGender, selectedFeature]);
 
   const handleFeatureSelection = (e) => {
-    console.log(e.name);
-    setSelectedFeature(e.name);
+    // console.log(e.name);
+    // setSelectedFeature(e.name);
+
+    setSearchParams((prev) => {
+      prev.set("Feature", e.name);
+      setSelectedFeature(e.name);
+      return prev;
+    });
   };
 
   return (
@@ -123,10 +142,10 @@ function Home() {
                     id="15-25"
                     name="filter-age"
                     value={"15-25"}
-                    checked={searchParams.get("selectedAge") === "15-25"}
+                    checked={searchParams.get("Age") === "15-25"}
                     onChange={(e) =>
                       setSearchParams((prev) => {
-                        prev.set("selectedAge", e.target.value);
+                        prev.set("Age", e.target.value);
                         setSelectedAge(e.target.value);
                         return prev;
                       })
@@ -143,10 +162,10 @@ function Home() {
                     id=">25"
                     name="filter-age"
                     value=">25"
-                    checked={searchParams.get("selectedAge") === ">25"}
+                    checked={searchParams.get("Age") === ">25"}
                     onChange={(e) =>
                       setSearchParams((prev) => {
-                        prev.set("selectedAge", e.target.value);
+                        prev.set("Age", e.target.value);
                         setSelectedAge(e.target.value);
                         return prev;
                       })
@@ -156,6 +175,26 @@ function Home() {
                 </label>
               </div>
             </form>
+          </div>
+          <div className="date-filter">
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              dateFormat="YYYY-MM-dd"
+            />
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              dateFormat="YYYY-MM-dd"
+              // className={`${startDate > endDate ? "red" : ""}`}
+            />
           </div>
 
           <div className="filter-item">
@@ -171,7 +210,7 @@ function Home() {
                     checked={selectedGender === "Male"}
                     onChange={(e) =>
                       setSearchParams((prev) => {
-                        prev.set("selectedGender", e.target.value);
+                        prev.set("Gender", e.target.value);
                         setSelectedGender(e.target.value);
                         return prev;
                       })
@@ -191,7 +230,7 @@ function Home() {
                     checked={selectedGender === "Female"}
                     onChange={(e) =>
                       setSearchParams((prev) => {
-                        prev.set("selectedGender", e.target.value);
+                        prev.set("Gender", e.target.value);
                         setSelectedGender(e.target.value);
                         return prev;
                       })
