@@ -16,6 +16,8 @@ function Home() {
 
   //Handle filter state through url:
   let [searchParams, setSearchParams] = useSearchParams({
+    start: "2022-10-03",
+    end: "2022-10-06",
     Age: null,
     Gender: null,
     Feature: "A",
@@ -33,14 +35,21 @@ function Home() {
   );
 
   //state for date picker
-  const [startDate, setStartDate] = useState(new Date("2014-02-08"));
-  const [endDate, setEndDate] = useState(new Date("2014-02-10"));
+  // const [startDate, setStartDate] = useState(new Date("2022-10-04"));
+  // const [endDate, setEndDate] = useState(new Date("2022-10-04"));
 
-  console.log(
-    startDate.toISOString().split("T")[0],
-    endDate.toISOString().split("T")[0]
-  );
+  const [startDate, setStartDate] = useState(searchParams.get("start"));
+  const [endDate, setEndDate] = useState(searchParams.get("end"));
 
+  const [getData, setGetData] = useState(false);
+  const [message, setMessage] = useState("");
+
+  // console.log(
+  //   startDate.toISOString().split("T")[0],
+  //   endDate.toISOString().split("T")[0],
+  //   message
+  // );
+  console.log(message);
   console.log(
     typeof searchParams.get("Age"),
     searchParams.get("Gender"),
@@ -50,10 +59,13 @@ function Home() {
   console.log(selectedAge, selectedGender, selectedFeature);
 
   const getdata = async () => {
+    // const start = startDate.toISOString().split("T")[0];
+    // const end = endDate.toISOString().split("T")[0];
+
     console.log("Fetching data");
     try {
       const res = await fetch(
-        "http://localhost:3005/api/data/fetchdata?start=2022-10-04&end=2022-10-04",
+        `http://localhost:3005/api/data/fetchdata?start=${startDate}&end=${endDate}`,
         {
           method: "GET",
           mode: "cors",
@@ -91,7 +103,7 @@ function Home() {
     getdata();
     // const data1 = getdata();
     // setData(data1);
-  }, []);
+  }, [getData]);
 
   useEffect(() => {
     console.log("data state", data);
@@ -122,6 +134,35 @@ function Home() {
     setSearchParams((prev) => {
       prev.set("Feature", e.name);
       setSelectedFeature(e.name);
+      return prev;
+    });
+  };
+
+  const handleDatafetch = (date, method) => {
+    console.log("event", method);
+    console.log(
+      "handleDatafetch",
+      // date,
+      // startDate,
+      // endDate,
+      new Date(date),
+      new Date(endDate),
+      method === "start" && date > new Date(endDate)
+    );
+    if (method === "start" && date > new Date(endDate)) {
+      setMessage("End date should be greater than start date");
+      setTimeout(() => setMessage(""), 3000);
+    } else setGetData(!getData);
+  };
+
+  const handleDateChangeFn = (date, method) => {
+    console.log("handleDateChangeFn", typeof method, method, date);
+    const dateISO = date.toISOString().split("T")[0];
+    if (method === "start") setStartDate(dateISO);
+    else setEndDate(dateISO);
+    handleDatafetch(date, method);
+    setSearchParams((prev) => {
+      prev.set(method, dateISO);
       return prev;
     });
   };
@@ -177,17 +218,20 @@ function Home() {
             </form>
           </div>
           <div className="date-filter">
+            <span>StartDate: </span>
             <DatePicker
               selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              // name="start"
+              onChange={(date) => handleDateChangeFn(date, "start")}
               selectsStart
               startDate={startDate}
               endDate={endDate}
               dateFormat="YYYY-MM-dd"
             />
+            <span>End Date:</span>
             <DatePicker
               selected={endDate}
-              onChange={(date) => setEndDate(date)}
+              onChange={(date) => handleDateChangeFn(date, "end")}
               selectsEnd
               startDate={startDate}
               endDate={endDate}

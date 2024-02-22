@@ -157,3 +157,6 @@ body{
 background-color: red;
 }
  */
+.date-filter span{
+    padding: 0 5px;
+}
