@@ -9,9 +9,11 @@ import ChartComponent from "../components/ChartComponent";
 import LineChartComponent from "../components/LineChartComponent";
 
 import { chart1DataCalc, chart2DataCalc } from "../utils/prepData";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Home() {
-  console.log("HOme component");
+  console.log("HOme component", window.location.href);
   const [count, setCount] = useState(0);
 
   //Handle filter state through url:
@@ -167,6 +169,21 @@ function Home() {
     });
   };
 
+  const copyToClip = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    toast.success("URL Copied to Clipboard!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      style: { "font-size": "20px", "font-weight": "700" },
+    });
+  };
+
   return (
     <div className="App">
       <Header />
@@ -298,6 +315,11 @@ function Home() {
             <LineChartComponent chart2Data={chart2Data} />
           </div>
         </div>
+      </div>
+      <div className="share-btn-div">
+        <button className="share-btn" onClick={() => copyToClip()}>
+          Copy URL
+        </button>
       </div>
     </div>
   );

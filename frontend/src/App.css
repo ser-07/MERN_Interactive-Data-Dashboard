@@ -160,3 +160,25 @@ background-color: red;
 .date-filter span{
     padding: 0 5px;
 }
+
+.Toastify * {
+    /* background-color: rgb(167, 180, 180); */
+    all: revert;
+
+} 
+
+.share-btn-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.share-btn-div .share-btn{
+    border-radius: 8px;
+    background-color: blue;
+    color: white;
+    width: 100px;
+    height: 40px;
+}
+
