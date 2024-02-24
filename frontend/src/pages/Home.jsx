@@ -16,6 +16,8 @@ function Home() {
   console.log("HOme component", window.location.href);
   const [count, setCount] = useState(0);
 
+  console.log("cookies", document);
+
   //Handle filter state through url:
   let [searchParams, setSearchParams] = useSearchParams({
     start: "2022-10-03",
