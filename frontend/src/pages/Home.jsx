@@ -76,6 +76,16 @@ function Home() {
       : Cookies.get("cfilter_Feature")
   );
 
+  //State to store the color data for chart1 - Selected feature:
+  const [chartColorData, setChartColorData] = useState([
+    "#1f77b4",
+    "#ff7f0e",
+    "#ff7f0e",
+    "#ff7f0e",
+    "#ff7f0e",
+    "#ff7f0e",
+  ]);
+
   //state for date picker
   // const [startDate, setStartDate] = useState(new Date("2022-10-04"));
   // const [endDate, setEndDate] = useState(new Date("2022-10-04"));
@@ -180,8 +190,21 @@ function Home() {
   }, [data, selectedAge, selectedGender, selectedFeature]);
 
   const handleFeatureSelection = (e) => {
-    // console.log(e.name);
+    console.log(e.name, typeof e.name, e.name.charCodeAt(0) - 65);
     // setSelectedFeature(e.name);
+
+    let tempChartColorData = [
+      "#ff770e",
+      "#ff7f0e",
+      "#ff7f0e",
+      "#ff7f0e",
+      "#ff7f0e",
+      "#ff7f0e",
+    ];
+
+    tempChartColorData[e.name.charCodeAt(0) - 65] = "#1f77b4";
+    console.log("tempChartColorData", tempChartColorData);
+    setChartColorData(tempChartColorData);
 
     setSearchParams((prev) => {
       prev.set("Feature", e.name);
@@ -383,6 +406,7 @@ function Home() {
               chart1Data={chart1Data}
               // handleFeatureSelection={(e) => handleFeatureSelection(e)
               handleFeatureSelection={handleFeatureSelection}
+              chartColorData={chartColorData}
             />
           </div>
           <div className="charts">

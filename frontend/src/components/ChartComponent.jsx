@@ -9,9 +9,14 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Cell,
 } from "recharts";
 
-function ChartComponent({ chart1Data, handleFeatureSelection }) {
+function ChartComponent({
+  chart1Data,
+  handleFeatureSelection,
+  chartColorData,
+}) {
   console.log(
     "char1data from chart component",
     chart1Data,
@@ -63,7 +68,11 @@ function ChartComponent({ chart1Data, handleFeatureSelection }) {
           fill="#8884d8"
           activeBar={<Rectangle fill="pink" stroke="blue" />}
           onClick={handleFeatureSelection}
-        />
+        >
+          {chart1Data.map((name, index) => (
+            <Cell key={index} fill={chartColorData[index]} />
+          ))}
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   );
