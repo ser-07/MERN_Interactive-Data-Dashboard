@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Cookies from "js-cookie";
 
 import Header from "../components/Header";
 
@@ -13,37 +14,82 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Home() {
-  console.log("HOme component", window.location.href);
+  // console.log("HOme component", window.location.href);
   const [count, setCount] = useState(0);
 
-  console.log("cookies", document);
+  // Cookies.set("language", "english");
+  // console.log("cookies", document.cookie);
+  console.log("Cookies from Home.js", Cookies.get());
 
   //Handle filter state through url:
   let [searchParams, setSearchParams] = useSearchParams({
-    start: "2022-10-03",
-    end: "2022-10-06",
-    Age: null,
-    Gender: null,
-    Feature: "A",
+    start:
+      Cookies.get("cfilter_start") === "undefined"
+        ? "2022-10-03"
+        : Cookies.get("cfilter_start"),
+
+    end:
+      Cookies.get("cfilter_end") === "undefined"
+        ? "2022-10-06"
+        : Cookies.get("cfilter_end"),
+    Age:
+      Cookies.get("cfilter_age") === "undefined"
+        ? null
+        : Cookies.get("cfilter_age"),
+    Gender:
+      Cookies.get("cfilter_gender") === "undefined"
+        ? null
+        : Cookies.get("cfilter_gender"),
+    Feature:
+      Cookies.get("cfilter_Feature") === "undefined"
+        ? "A"
+        : Cookies.get("cfilter_Feature"),
   });
 
+  // console.log("searchParams", searchParams);
+  // console.log(
+  //   "Test line - Cookie and Search Params",
+  //   Cookies.get("cfilter_gender"),
+  //   Cookies.get("cfilter_gender") === undefined,
+  //   searchParams.get("Gender")
+  // );
+
   const [selectedGender, setSelectedGender] = useState(
-    searchParams.get("Gender")
+    Cookies.get("cfilter_gender") === "undefined"
+      ? searchParams.get("Gender")
+      : Cookies.get("cfilter_gender")
   );
-  const [selectedAge, setSelectedAge] = useState(searchParams.get("Age"));
+
+  const [selectedAge, setSelectedAge] = useState(
+    Cookies.get("cfilter_age") === "undefined"
+      ? searchParams.get("Age")
+      : Cookies.get("cfilter_age")
+  );
+
   const [data, setData] = useState({});
   const [chart1Data, setchart1Data] = useState([]);
   const [chart2Data, setchart2Data] = useState([]);
   const [selectedFeature, setSelectedFeature] = useState(
-    searchParams.get("Feature")
+    // searchParams.get("Feature")
+    Cookies.get("cfilter_Feature") === "undefined"
+      ? searchParams.get("Feature")
+      : Cookies.get("cfilter_Feature")
   );
 
   //state for date picker
   // const [startDate, setStartDate] = useState(new Date("2022-10-04"));
   // const [endDate, setEndDate] = useState(new Date("2022-10-04"));
 
-  const [startDate, setStartDate] = useState(searchParams.get("start"));
-  const [endDate, setEndDate] = useState(searchParams.get("end"));
+  const [startDate, setStartDate] = useState(
+    Cookies.get("cfilter_start") === "undefined"
+      ? searchParams.get("start")
+      : Cookies.get("cfilter_start")
+  );
+  const [endDate, setEndDate] = useState(
+    Cookies.get("cfilter_end") === "undefined"
+      ? searchParams.get("end")
+      : Cookies.get("cfilter_end")
+  );
 
   const [getData, setGetData] = useState(false);
   const [message, setMessage] = useState("");
@@ -107,6 +153,7 @@ function Home() {
     getdata();
     // const data1 = getdata();
     // setData(data1);
+    setSearchParams(searchParams);
   }, [getData]);
 
   useEffect(() => {
@@ -129,6 +176,7 @@ function Home() {
     //   d1,
     //   d2
     // );
+    // Cookies.set("searchParams", window.location.href);
   }, [data, selectedAge, selectedGender, selectedFeature]);
 
   const handleFeatureSelection = (e) => {
@@ -140,6 +188,8 @@ function Home() {
       setSelectedFeature(e.name);
       return prev;
     });
+
+    Cookies.set("cfilter_Feature", e.name);
   };
 
   const handleDatafetch = (date, method) => {
@@ -155,6 +205,17 @@ function Home() {
     );
     if (method === "start" && date > new Date(endDate)) {
       setMessage("End date should be greater than start date");
+      toast.warn("End date should be greater than start date", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        style: { "font-size": "20px", "font-weight": "700" },
+      });
       setTimeout(() => setMessage(""), 3000);
     } else setGetData(!getData);
   };
@@ -162,13 +223,19 @@ function Home() {
   const handleDateChangeFn = (date, method) => {
     console.log("handleDateChangeFn", typeof method, method, date);
     const dateISO = date.toISOString().split("T")[0];
-    if (method === "start") setStartDate(dateISO);
-    else setEndDate(dateISO);
+    if (method === "start") {
+      setStartDate(dateISO);
+      Cookies.set("cfilter_start", dateISO);
+    } else {
+      setEndDate(dateISO);
+      Cookies.set("cfilter_end", dateISO);
+    }
     handleDatafetch(date, method);
     setSearchParams((prev) => {
       prev.set(method, dateISO);
       return prev;
     });
+    // Cookies.set("cfilter_start", e.name)
   };
 
   const copyToClip = async () => {
@@ -207,6 +274,8 @@ function Home() {
                       setSearchParams((prev) => {
                         prev.set("Age", e.target.value);
                         setSelectedAge(e.target.value);
+                        Cookies.set("cfilter_age", e.target.value);
+
                         return prev;
                       })
                     }
@@ -227,6 +296,7 @@ function Home() {
                       setSearchParams((prev) => {
                         prev.set("Age", e.target.value);
                         setSelectedAge(e.target.value);
+                        Cookies.set("cfilter_age", e.target.value);
                         return prev;
                       })
                     }
@@ -275,6 +345,7 @@ function Home() {
                       setSearchParams((prev) => {
                         prev.set("Gender", e.target.value);
                         setSelectedGender(e.target.value);
+                        Cookies.set("cfilter_gender", e.target.value);
                         return prev;
                       })
                     }
@@ -295,6 +366,7 @@ function Home() {
                       setSearchParams((prev) => {
                         prev.set("Gender", e.target.value);
                         setSelectedGender(e.target.value);
+                        Cookies.set("cfilter_gender", e.target.value);
                         return prev;
                       })
                     }

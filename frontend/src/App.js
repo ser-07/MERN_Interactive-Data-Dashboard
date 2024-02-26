@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import Cookies from "js-cookie";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,6 +11,7 @@ import SignIn from "./pages/SignIn.jsx";
 import Home from "./pages/Home.jsx";
 
 import PrivateRoute from "./components/PrivateRoute.jsx";
+console.log("Cookies from app.js", Cookies.get());
 
 function App() {
   return (
