@@ -66,7 +66,7 @@ function ChartComponent({
           background
           dataKey="value"
           fill="#8884d8"
-          activeBar={<Rectangle fill="pink" stroke="blue" />}
+          // activeBar={<Rectangle fill="pink" stroke="blue" />}
           onClick={handleFeatureSelection}
         >
           {chart1Data.map((name, index) => (

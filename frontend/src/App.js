@@ -12,13 +12,18 @@ import Home from "./pages/Home.jsx";
 
 import PrivateRoute from "./components/PrivateRoute.jsx";
 console.log("Cookies from app.js", Cookies.get());
+console.log("App component", window.location.href);
+
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/signIn" element={<SignIn />} />
+          <Route
+            path="/signIn"
+            element={<SignIn redirectURL={window.location.href} />}
+          />
           <Route path="/signUp" element={<SignUp />} />
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<Home />} />

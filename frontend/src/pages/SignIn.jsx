@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   signInStart,
   signInSuccess,
@@ -8,7 +8,7 @@ import {
   signInErrorTimeout,
 } from "../redux/user/userSlice.js";
 
-function SignIn() {
+function SignIn({ redirectURL }) {
   const [formData, setformData] = useState({});
 
   const { isLoading, error, currentUser } = useSelector((state) => {
@@ -18,6 +18,14 @@ function SignIn() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  console.log(
+    "SignIn component",
+    window.location.href,
+    "redirectURL",
+    redirectURL
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,7 +59,12 @@ function SignIn() {
       //add data to store
       dispatch(signInSuccess(data));
 
-      navigate("/");
+      // navigate("/");
+      navigate(redirectURL);
+      console.log("location.state", location.state);
+      if (location.state?.from) {
+        navigate(location.state.from);
+      } else navigate("/");
     } catch (error) {
       // error before making fetch request
       dispatch(signInFailure(error));
