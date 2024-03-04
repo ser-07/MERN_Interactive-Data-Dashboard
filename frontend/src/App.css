@@ -65,8 +65,9 @@ body{
     background-color: rgb(244, 56, 56);
     color: white;
     border-radius: 10px;
-    height: 30px;
     font-weight: 700;
+    width: 100px;
+    height: 40px;
 }
 
 
@@ -74,25 +75,31 @@ body{
     background-color: red;
     color: white;
     border-radius: 10px;
-    height: 30px;
+    height: 40px;
     font-weight: 700;
     transform: scale(1.05);
 }
 
 /* Home */
 
+.App h1{
+    text-align: center;
+}
+
 .App .dashboard{
     display: flex;
     flex-direction: column;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     min-height: 700px;
 }
 
 .App .dashboard .filters{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border: 2px solid gray;
     border-radius: 10px;
+    flex-wrap: wrap;
 }
 
 .App .dashboard .filters .filter-item {
@@ -115,12 +122,17 @@ body{
 
 .App .dashboard .chart-div{
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px
     
 }
 
 .App .dashboard .chart-div .charts{
-    border: 2px solid red;
-    width: 50%;
+    /* border: 2px solid red; */
+    /* width: 50%;*/
+    width: 600px;
+    max-width: 700px;
     height: 500px;
 }
 
@@ -133,8 +145,12 @@ body{
 .date-filter{
     display: flex;
     flex-wrap: wrap;
-    border: 2px solid red;
-    height: 30px;
+    border: 2px solid grey;
+    border-radius: 8px;
+    align-items: center;
+    height: 60px;
+    height: fit-content;
+    /* flex-direction: column; */
     /* justify-content: space-between; */
 }
 
@@ -144,13 +160,13 @@ body{
 
 .react-datepicker-wrapper{
     padding: 5px;
-    
+    /* border: 2px solid red;  */
    
 }
 
 .react-datepicker-wrapper .react-datepicker__input-container input{
-    border-radius: 6px
-
+    border-radius: 6px;
+    height: 35px;
 }
 
 /* .react-datepicker__input-container input .red{
@@ -158,7 +174,7 @@ background-color: red;
 }
  */
 .date-filter span{
-    padding: 0 5px;
+    padding: 0 8px;
 }
 
 .Toastify * {
@@ -167,18 +183,87 @@ background-color: red;
 
 } 
 
-.share-btn-div{
+
+.btn-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .btn-container .share-btn-div{
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} */
 
 
-.share-btn-div .share-btn{
+.btn-container .share-btn-div .share-btn{
     border-radius: 8px;
     background-color: blue;
     color: white;
     width: 100px;
     height: 40px;
+    box-shadow: rgba(100, 100, 111, 0.2) 1px 7px 29px 1px;
+
 }
 
+.btn-container .share-btn-div .share-btn:hover{
+    transform: scale(1.05);
+}
+
+.btn-container .share-btn-div .share-btn:active{
+    transform: scale(0.9);
+}
+
+.btn-container .clear-cookie-btn-div button{
+    border-radius: 8px;
+    background-color: yellow;
+    color:black;
+    width: 100px;
+    height: 40px;
+    font-weight: 600;
+    /* box-shadow: 1px 1px; */
+    /* box-shadow: rgba(100, 100, 111, 0.2) 1px 7px 29px 1px; */
+}
+
+.btn-container .clear-cookie-btn-div button:hover{
+    transform: scale(1.05);
+}
+
+.btn-container .clear-cookie-btn-div button:active{
+    transform: scale(0.9);
+}
+
+
+@media only screen and (max-width: 980px)  {
+  .App .dashboard .filters {
+    /* border: 2px solid red; */
+    /* flex-direction: column; */
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .App .dashboard .filters .date-filter{
+    /* background-color: red; */
+    flex-direction: column;
+    height: fit-content;
+    justify-content: center;
+    order: 2;
+    width: 100%;
+  }
+
+  .App .dashboard .chart-div .charts{
+    /* border: 2px solid red; */
+    /* width: 50%;*/
+    width: 100%;
+    /* height: 500px; */
+}
+
+    .filter-item-Age{
+        order: 1;
+    }
+
+    .filter-item-Gender{
+        order: 1
+    }
+
+}

@@ -319,13 +319,25 @@ function Home() {
     });
   };
 
+
+  const handleClearCookie = () => {
+    console.log("Clear cookie button clicked");
+    // console.log(Cookies.get());
+    const x = Cookies.get();
+    // console.log(x);
+
+    for (const [key, value] of Object.entries(x)) {
+      Cookies.remove(key);
+    }
+  };
+
   return (
     <div className="App">
       <Header />
-      <h1>MERN Interactive Dashboard - {count}</h1>
+      <h1>MERN Interactive Dashboard</h1>
       <div className="dashboard">
         <div className="filters">
-          <div className="filter-item">
+          <div className="filter-item filter-item-Age">
             <p>Age</p>
             <form className="filter-item-form">
               <div className="radio-item">
@@ -396,7 +408,7 @@ function Home() {
             />
           </div>
 
-          <div className="filter-item">
+          <div className="filter-item filter-item-Gender">
             <p>Gender</p>
             <form className="filter-item-form">
               <div className="radio-item">
@@ -457,10 +469,15 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="share-btn-div">
-        <button className="share-btn" onClick={() => copyToClip()}>
-          Copy URL
-        </button>
+      <div className="btn-container">
+        <div className="share-btn-div">
+          <button className="share-btn" onClick={() => copyToClip()}>
+            Copy URL
+          </button>
+        </div>
+        <div className="clear-cookie-btn-div">
+          <button onClick={handleClearCookie}>Clear Cookies</button>
+        </div>
       </div>
     </div>
   );
