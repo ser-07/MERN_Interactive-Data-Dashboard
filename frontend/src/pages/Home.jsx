@@ -8,6 +8,7 @@ import Header from "../components/Header";
 
 import ChartComponent from "../components/ChartComponent";
 import LineChartComponent from "../components/LineChartComponent";
+import LineChartExtComponent from "../components/LineChartExtComponent";
 
 import { chart1DataCalc, chart2DataCalc } from "../utils/prepData";
 import { toast } from "react-toastify";
@@ -20,7 +21,6 @@ function Home() {
   // Cookies.set("language", "english");
   // console.log("cookies", document.cookie);
   console.log("Cookies from Home.js", Cookies.get());
-
 
   let [searchParams, setSearchParams] = useSearchParams({
     start:
@@ -46,18 +46,6 @@ function Home() {
         : Cookies.get("cfilter_Feature"),
   });
 
-  console.log(
-    "searchParams",
-    searchParams.get("Age"),
-    searchParams.get("feature")
-  );
-  // console.log(
-  //   "Test line - Cookie and Search Params",
-  //   Cookies.get("cfilter_gender"),
-  //   Cookies.get("cfilter_gender") === undefined,
-  //   searchParams.get("Gender")
-  // );
-
   const [selectedGender, setSelectedGender] = useState(
     searchParams.get("Gender") === null
       ? Cookies.get("cfilter_gender")
@@ -75,7 +63,6 @@ function Home() {
   const [chart2Data, setchart2Data] = useState([]);
 
   const [selectedFeature, setSelectedFeature] = useState(
-    // searchParams.get("Feature")
     searchParams.get("Feature") === null
       ? Cookies.get("cfilter_Feature")
       : searchParams.get("Feature")
@@ -319,17 +306,29 @@ function Home() {
     });
   };
 
-
   const handleClearCookie = () => {
     console.log("Clear cookie button clicked");
     // console.log(Cookies.get());
     const x = Cookies.get();
-    // console.log(x);
 
     for (const [key, value] of Object.entries(x)) {
       Cookies.remove(key);
     }
+
+    toast.success("Cookies are cleared!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      style: { "font-size": "20px", "font-weight": "700" },
+    });
   };
+
+  // console.log("XXXXXX", chart1Data, chart2Data);
 
   return (
     <div className="App">
@@ -465,7 +464,7 @@ function Home() {
             />
           </div>
           <div className="charts">
-            <LineChartComponent chart2Data={chart2Data} />
+            <LineChartExtComponent chart2Data={chart2Data} />
           </div>
         </div>
       </div>

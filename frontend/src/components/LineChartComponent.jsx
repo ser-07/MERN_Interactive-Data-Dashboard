@@ -54,3 +54,4 @@ function LineChartComponent({ chart2Data }) {
 }
 
 export default LineChartComponent;
+ 
