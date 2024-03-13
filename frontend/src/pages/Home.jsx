@@ -68,6 +68,8 @@ function Home() {
       : searchParams.get("Feature")
   );
 
+  const [selectedTest, setSelectedTest] = useState(null);
+
   //State to store the color data for chart1 - Selected feature:
   const [chartColorData, setChartColorData] = useState([
     "#1f77b4",
@@ -102,12 +104,12 @@ function Home() {
   //   endDate.toISOString().split("T")[0],
   //   message
   // );
-  console.log(message);
-  console.log(
-    typeof searchParams.get("Age"),
-    searchParams.get("Gender"),
-    searchParams.get("Feature")
-  );
+  // console.log(message);
+  // console.log(
+  //   typeof searchParams.get("Age"),
+  //   searchParams.get("Gender"),
+  //   searchParams.get("Feature")
+  // );
 
   console.log(
     "state values:",
@@ -140,7 +142,7 @@ function Home() {
     // const start = startDate.toISOString().split("T")[0];
     // const end = endDate.toISOString().split("T")[0];
 
-    console.log("Fetching data");
+    // console.log("Fetching data");
     try {
       const res = await fetch(
         `http://localhost:3005/api/data/fetchdata?start=${startDate}&end=${endDate}`,
@@ -162,7 +164,7 @@ function Home() {
       //   return data;
       // });
       const data1 = await res.json();
-      console.log(data1);
+      // console.log(data1);
       setData(data1);
 
       // console.log("data state", data);
@@ -188,7 +190,7 @@ function Home() {
 
   useEffect(() => {
     console.log("data state", data);
-    console.log(selectedAge, selectedGender, selectedFeature);
+    // console.log(selectedAge, selectedGender, selectedFeature);
     setCount(data.length);
     const d1 = chart1DataCalc(data, selectedAge, selectedGender);
     const d2 = chart2DataCalc(
@@ -232,7 +234,7 @@ function Home() {
   };
 
   const handleFeatureSelection = (e) => {
-    console.log(e.name, typeof e.name, e.name.charCodeAt(0) - 65);
+    // console.log(e.name, typeof e.name, e.name.charCodeAt(0) - 65);
 
     handleChartColor(e.name);
 
@@ -246,16 +248,16 @@ function Home() {
   };
 
   const handleDatafetch = (date, method) => {
-    console.log("event", method);
-    console.log(
-      "handleDatafetch",
-      // date,
-      // startDate,
-      // endDate,
-      new Date(date),
-      new Date(endDate),
-      method === "start" && date > new Date(endDate)
-    );
+    // console.log("event", method);
+    // console.log(
+    //   "handleDatafetch",
+    //   // date,
+    //   // startDate,
+    //   // endDate,
+    //   new Date(date),
+    //   new Date(endDate),
+    //   method === "start" && date > new Date(endDate)
+    // );
     if (method === "start" && date > new Date(endDate)) {
       setMessage("End date should be greater than start date");
       toast.warn("End date should be greater than start date", {
@@ -274,7 +276,7 @@ function Home() {
   };
 
   const handleDateChangeFn = (date, method) => {
-    console.log("handleDateChangeFn", typeof method, method, date);
+    // console.log("handleDateChangeFn", typeof method, method, date);
     const dateISO = date.toISOString().split("T")[0];
     if (method === "start") {
       setStartDate(dateISO);
@@ -307,11 +309,12 @@ function Home() {
   };
 
   const handleClearCookie = () => {
-    console.log("Clear cookie button clicked");
+    // console.log("Clear cookie button clicked");
     // console.log(Cookies.get());
     const x = Cookies.get();
 
     for (const [key, value] of Object.entries(x)) {
+      // console.log("key", key, typeof key);
       Cookies.remove(key);
     }
 
@@ -342,17 +345,25 @@ function Home() {
               <div className="radio-item">
                 <label>
                   <input
-                    type="radio"
+                    type="checkbox"
                     id="15-25"
                     name="filter-age"
                     value={"15-25"}
                     checked={searchParams.get("Age") === "15-25"}
-                    onChange={(e) =>
+                    onClick={(e) =>
+                      //Check if the previous Age value for cookie, state and search params are the same as the current selection. If yes, make all of them null
                       setSearchParams((prev) => {
-                        prev.set("Age", e.target.value);
-                        setSelectedAge(e.target.value);
-                        Cookies.set("cfilter_age", e.target.value);
+                        if (prev.get("Age") !== e.target.value) {
+                          prev.set("Age", e.target.value);
+                          Cookies.set("cfilter_age", e.target.value);
+                        } else {
+                          prev.set("Age", null);
+                          Cookies.set("cfilter_age", null);
+                        }
 
+                        setSelectedAge((prev) =>
+                          prev === e.target.value ? "null" : e.target.value
+                        );
                         return prev;
                       })
                     }
@@ -364,16 +375,25 @@ function Home() {
               <div className="radio-item">
                 <label>
                   <input
-                    type="radio"
+                    type="checkbox"
                     id=">25"
                     name="filter-age"
                     value=">25"
                     checked={searchParams.get("Age") === ">25"}
-                    onChange={(e) =>
+                    onClick={(e) =>
+                      //Check if the previous Age value for cookie, state and search params are the same as the current selection. If yes, make all of them null
                       setSearchParams((prev) => {
-                        prev.set("Age", e.target.value);
-                        setSelectedAge(e.target.value);
-                        Cookies.set("cfilter_age", e.target.value);
+                        if (prev.get("Age") !== e.target.value) {
+                          prev.set("Age", e.target.value);
+                          Cookies.set("cfilter_age", e.target.value);
+                        } else {
+                          prev.set("Age", null);
+                          Cookies.set("cfilter_age", null);
+                        }
+
+                        setSelectedAge((prev) =>
+                          prev === e.target.value ? "null" : e.target.value
+                        );
                         return prev;
                       })
                     }
@@ -413,16 +433,25 @@ function Home() {
               <div className="radio-item">
                 <label>
                   <input
-                    type="radio"
+                    type="checkbox"
                     id="male"
                     name="filter-gender"
                     value="Male"
                     checked={selectedGender === "Male"}
-                    onChange={(e) =>
+                    onClick={(e) =>
+                      //Check if the previous gender value for cookie, state and search params are the same as the current selection. If yes, make all of them null
                       setSearchParams((prev) => {
-                        prev.set("Gender", e.target.value);
-                        setSelectedGender(e.target.value);
-                        Cookies.set("cfilter_gender", e.target.value);
+                        if (prev.get("Gender") !== e.target.value) {
+                          prev.set("Gender", e.target.value);
+                          Cookies.set("cfilter_gender", e.target.value);
+                        } else {
+                          prev.set("Gender", null);
+                          Cookies.set("cfilter_gender", null);
+                        }
+
+                        setSelectedGender((prev) =>
+                          prev === e.target.value ? "null" : e.target.value
+                        );
                         return prev;
                       })
                     }
@@ -434,16 +463,25 @@ function Home() {
               <div className="radio-item">
                 <label>
                   <input
-                    type="radio"
+                    type="checkbox"
                     id="female"
                     name="filter-gender"
                     value="Female"
                     checked={selectedGender === "Female"}
-                    onChange={(e) =>
+                    onClick={(e) =>
+                      //Check if the previous gender value for cookie, state and search params are the same as the current selection. If yes, make all of them null
                       setSearchParams((prev) => {
-                        prev.set("Gender", e.target.value);
-                        setSelectedGender(e.target.value);
-                        Cookies.set("cfilter_gender", e.target.value);
+                        if (prev.get("Gender") !== e.target.value) {
+                          prev.set("Gender", e.target.value);
+                          Cookies.set("cfilter_gender", e.target.value);
+                        } else {
+                          prev.set("Gender", null);
+                          Cookies.set("cfilter_gender", null);
+                        }
+
+                        setSelectedGender((prev) =>
+                          prev === e.target.value ? "null" : e.target.value
+                        );
                         return prev;
                       })
                     }
@@ -464,7 +502,9 @@ function Home() {
             />
           </div>
           <div className="charts">
-            <LineChartExtComponent chart2Data={chart2Data} />
+            {chart2Data.length > 0 ? (
+              <LineChartExtComponent chart2Data={chart2Data} />
+            ) : null}
           </div>
         </div>
       </div>
