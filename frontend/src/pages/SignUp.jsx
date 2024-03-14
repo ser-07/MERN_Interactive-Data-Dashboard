@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function SignUp() {
-
   const [formData, setformData] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +14,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    
+
     try {
       const res = await fetch(`http://localhost:3005/api/auth/signup`, {
         method: "POST",
@@ -82,6 +81,12 @@ function SignUp() {
         </button>
       </form>
       {error && <p className="p-error">{error}</p>}
+      <div className="signIn-SignUp">
+        <p>Do not have an account?</p>
+        <Link to={"/signIn"}>
+          <span>Sign In</span>
+        </Link>
+      </div>
     </div>
   );
 }

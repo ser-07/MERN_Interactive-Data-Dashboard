@@ -1,16 +1,23 @@
 *{
     padding: 5px;
     font-family: sans-serif;
-    /* background-color: rgb(223, 233, 231); */
+    /* background-color: rgb(150, 204, 156); */
+
 }
 
 body{
-    overflow: "hidden"
+    overflow: "hidden";
+    margin: 0 auto;
+    /* border: 2px solid red; */
 }
+
+label{
+    font-weight: 600;
+}
+
 .signInDiv{
     /* background-color: red; */
-    display: flex;
-    flex-direction: column;
+ 
     max-width: 620px;
     margin: 0 auto;
 }
@@ -18,6 +25,10 @@ body{
 .signInDiv h1{
     text-align: center;
     padding: 0;
+}
+
+.p-error{
+    text-align: center;
 }
 
 .signInDiv .signInForm{
@@ -52,6 +63,11 @@ body{
     transform: scale(0.9);
 }
 
+.signIn-SignUp {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
 
 /* HEADER */
 
@@ -120,9 +136,20 @@ body{
     border-radius: 10px;
 }
 
+.App .dashboard .filters .filter-item p{
+    font-weight: 700;
+}
+
+.radio-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .App .dashboard .chart-div{
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     gap: 40px
     
@@ -158,6 +185,10 @@ body{
    transform:  translate(1025.07px, 217.6px)
 } */
 
+.date-filter span {
+    font-weight: 700;
+}
+
 .react-datepicker-wrapper{
     padding: 5px;
     /* border: 2px solid red;  */
@@ -167,7 +198,10 @@ body{
 .react-datepicker-wrapper .react-datepicker__input-container input{
     border-radius: 6px;
     height: 35px;
+    font-weight: 500;
+
 }
+
 
 /* .react-datepicker__input-container input .red{
 background-color: red;
@@ -235,7 +269,11 @@ background-color: red;
 
 
 @media only screen and (max-width: 980px)  {
-  .App .dashboard .filters {
+  *{
+    padding: 1px;
+  }
+  
+    .App .dashboard .filters {
     /* border: 2px solid red; */
     /* flex-direction: column; */
     justify-content: center;
@@ -252,7 +290,7 @@ background-color: red;
   }
 
   .App .dashboard .chart-div .charts{
-    border: 2px solid red;
+    /* border: 2px solid red; */
     /* width: 50%;*/
     width: 100%;
     /* height: 500px; */
@@ -261,8 +299,6 @@ background-color: red;
 
 .App .dashboard .chart-div .charts
 
-
-
     .filter-item-Age{
         order: 1;
     }
@@ -270,5 +306,8 @@ background-color: red;
     .filter-item-Gender{
         order: 1
     }
-
+.recharts-responsive-container{
+    width: 95%;
 }
+}
+

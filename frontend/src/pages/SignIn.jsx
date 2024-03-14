@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import {
   signInStart,
   signInSuccess,
@@ -82,7 +82,7 @@ function SignIn({ redirectURL }) {
 
   return (
     <div className="signInDiv">
-      <h1>Sign IN</h1>
+      <h1>Sign In</h1>
       <form className="signInForm" onSubmit={handleSubmit}>
         <input
           onChange={handleInputFieldChange}
@@ -105,6 +105,13 @@ function SignIn({ redirectURL }) {
         </button>
       </form>
       {error && <p className="p-error">{error}</p>}
+
+      <div className="signIn-SignUp">
+        <p>Do not have an account?</p>
+        <Link to={"/signUp"}>
+          <span>Sign Up</span>
+        </Link>
+      </div>
     </div>
   );
 }

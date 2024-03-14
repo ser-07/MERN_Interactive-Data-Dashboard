@@ -10,7 +10,7 @@ function PrivateRoute() {
   return currentUser !== null ? (
     <Outlet />
   ) : (
-    <Navigate to="/signin" replace state={{ from: location }} />
+    <Navigate to="/signIn" replace state={{ from: location }} />
   );
 }
 
