@@ -16,18 +16,21 @@ function SignUp() {
     console.log(formData);
 
     try {
-      const res = await fetch(`http://localhost:3005/api/auth/signup`, {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        redirect: "follow",
-        referrer: "no-referrer",
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`,
+        {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          redirect: "follow",
+          referrer: "no-referrer",
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await res.json();
       console.log(data);

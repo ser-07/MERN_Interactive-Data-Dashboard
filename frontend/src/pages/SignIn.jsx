@@ -35,18 +35,23 @@ function SignIn({ redirectURL }) {
 
     //make a post request to backend for signIn
     try {
-      const res = await fetch(`http://localhost:3005/api/auth/signin`, {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        redirect: "follow",
-        // referrer: "no-referrer",
-        body: JSON.stringify(formData),
-      });
+      // REACT_APP_BACKEND_URL;
+      console.log("sign in URL", process.env.REACT_APP_BACKEND_URL);
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/signin`,
+        {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          redirect: "follow",
+          // referrer: "no-referrer",
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       console.log(data);
 
