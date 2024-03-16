@@ -7,9 +7,12 @@ import cookieParser from "cookie-parser";
 
 import authRouter from "./routes/auth.route.js";
 import dataRouter from "./routes/data.route.js";
+import path from "path";
 
 dotenv.config();
 const app = express();
+
+const __dirname = path.resolve();
 
 app.use(bodyParser.json()); //added after being not body showing undefined when passed from react application. Was workng with postman before this change
 app.use(
@@ -20,7 +23,6 @@ app.use(
 );
 app.use(cookieParser()); //To accept cookies
 app.use(cors({ origin: "http://localhost:3000", credentials: true })); //added after getting CORS error
-
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -37,6 +39,13 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/data", dataRouter);
+
+//Addign this line for build and deployment - https://create-react-app.dev/docs/deployment/
+app.use(express.static(path.join(__dirname, "/frontend/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+});
+
 
 //Middleware to handle errors
 app.use((err, req, res, next) => {
