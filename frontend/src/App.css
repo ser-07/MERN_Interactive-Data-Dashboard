@@ -63,6 +63,33 @@ label{
     transform: scale(0.9);
 }
 
+.one-click-btn-div{
+    display: flex;
+    align-items: center;
+}
+
+.form-btn-green{
+    background-color: rgb(23, 180, 23);
+    color: white;
+    border-radius: 9px; 
+    height: 40px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form-btn-green:hover{
+    background-color: rgb(15, 131, 15);
+    color: white;
+    border-radius: 9px; 
+    
+}
+
+.form-btn-green:active{
+    /* box-shadow: 0 5px #666; */
+    transform: scale(0.9);
+}
+
+
 .signIn-SignUp {
     display: flex;
     /* justify-content: center; */

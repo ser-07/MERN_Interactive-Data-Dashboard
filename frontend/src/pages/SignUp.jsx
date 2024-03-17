@@ -79,7 +79,7 @@ function SignUp() {
           className="form-input"
           required
         />
-        <button className="form-btn" disabled={isLoading}>
+        <button className="form-btn">
           {isLoading ? "LOADING" : "SIGN UP"}
         </button>
       </form>

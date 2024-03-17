@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import {
@@ -10,6 +10,13 @@ import {
 
 function SignIn({ redirectURL }) {
   const [formData, setformData] = useState({});
+  const [signInwithTestcredsFlg, setSignInwithTestcredsFlg] = useState(true);
+
+  //Effect to call the signIn handle functions once the signInwith testcreds are clicked:
+  useEffect(() => {
+    console.log("Formdata name", formData.email, formData.email == undefined);
+    if (formData.email != undefined) handleSubmit(new Event("test"));
+  }, [signInwithTestcredsFlg]);
 
   const { isLoading, error, currentUser } = useSelector((state) => {
     console.log(state);
@@ -108,10 +115,21 @@ function SignIn({ redirectURL }) {
           className="form-input"
           required
         />
-        <button className="form-btn" disabled={isLoading}>
+        <button className="form-btn">
           {isLoading ? "LOADING" : "SIGN IN"}
         </button>
       </form>
+      <div className="one-click-btn-div">
+        <button
+          className="form-btn-green"
+          onClick={(e) => {
+            setformData({ email: "test3@test.com", password: "test3" });
+            setSignInwithTestcredsFlg(!signInwithTestcredsFlg);
+          }}
+        >
+          Sign in with test credentials
+        </button>
+      </div>
       {error && <p className="p-error">{error}</p>}
 
       <div className="signIn-SignUp">
