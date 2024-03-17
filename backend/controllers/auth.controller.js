@@ -47,7 +47,7 @@ export const signIn = async (req, res, next) => {
     const { password: pass, ...rest } = doesEmailExists._doc;
 
     res
-      .cookie("access_token", token, { httpOnly: true })
+      .cookie("access_token", token, { httpOnly: true, sameSite: "none" })
       .status(200)
       .json(rest);
     //set({'Access-Control-Allow-Origin':'http://localhost:3000/'}).

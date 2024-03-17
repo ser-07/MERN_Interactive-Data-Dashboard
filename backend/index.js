@@ -24,9 +24,9 @@ app.use(
 app.use(cookieParser()); //To accept cookies
 
 var corsOptions = {
-  origin: [process.env.ALLOWED_CLIENT_URL ,"http://localhost:3000"],
-  credentials: true
-  }
+  origin: [process.env.ALLOWED_CLIENT_URL, "http://localhost:3000"],
+  credentials: true,
+};
 
 // app.use(cors({ origin: process.env.ALLOWED_CLIENT_URL, credentials: true })); //added after getting CORS error
 // app.use(cors());

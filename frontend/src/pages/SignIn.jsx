@@ -54,8 +54,9 @@ function SignIn({ redirectURL }) {
           body: JSON.stringify(formData),
         }
       );
+      console.log(res);
       const data = await res.json();
-      console.log(data);
+      console.log("data", data, data.success);
 
       //Handle errors from fetch request
       if (data.success === false) {
