@@ -30,7 +30,7 @@ function Home() {
 
     end:
       Cookies.get("cfilter_end") === undefined
-        ? "2022-10-06"
+        ? "2022-10-13"
         : Cookies.get("cfilter_end"),
     Age:
       Cookies.get("cfilter_age") === undefined
