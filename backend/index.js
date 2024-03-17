@@ -42,17 +42,18 @@ app.listen(3005, () => {
   console.log(`Service is running on port 3005`);
 });
 
-app.get("/", (req, res) => {
-  res.send("Homepage");
-});
+// app.get("/", (req, res) => {
+//   res.send("Homepage");
+// });
 
 app.use("/api/auth", authRouter);
 app.use("/api/data", dataRouter);
 
 //Addign this line for build and deployment - https://create-react-app.dev/docs/deployment/
 app.use(express.static(path.join(__dirname, "/frontend/build")));
+
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "/frontend/build/index.html"));
 });
 
 
