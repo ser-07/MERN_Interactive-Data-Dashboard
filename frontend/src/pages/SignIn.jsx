@@ -39,6 +39,8 @@ function SignIn({ redirectURL }) {
       console.log("sign in URL", process.env.REACT_APP_BACKEND_URL);
       const res = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/auth/signin`,
+        // `http://localhost:3005/api/auth/signin`,
+
         {
           method: "POST",
           mode: "cors",

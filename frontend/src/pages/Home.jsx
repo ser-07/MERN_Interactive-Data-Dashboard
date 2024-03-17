@@ -146,6 +146,7 @@ function Home() {
     try {
       const res = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/data/fetchdata?start=${startDate}&end=${endDate}`,
+        // `http://localhost:3005/api/data/fetchdata?start=${startDate}&end=${endDate}`,
         {
           method: "GET",
           mode: "cors",

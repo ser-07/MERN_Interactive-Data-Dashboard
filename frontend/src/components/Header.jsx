@@ -18,7 +18,9 @@ function Header() {
     try {
       dispatch(signOutUserStart());
       const res = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}api/auth/signout`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/signout`,
+        // `http://localhost:3005/api/auth/signout`,
+
         {
           method: "GET",
           mode: "cors",
